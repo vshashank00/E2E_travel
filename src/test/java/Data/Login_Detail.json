@@ -1,0 +1,18 @@
+[
+  {
+    "id": "vshashank00@gmail.com",
+    "password": "Password@1",
+    "name": "Shashank",
+    "source": "Goa",
+    "sourceairport": "Dabolim",
+    "destairport": "Gandhi",
+    "destination": "delhi",
+    "travelDate": "28",
+    "travelYear": "2024",
+    "travelMonth": "March",
+    "returnDate": "28",
+    "returnYear": "2025",
+    "returnMonth": "March"
+
+  }
+]
