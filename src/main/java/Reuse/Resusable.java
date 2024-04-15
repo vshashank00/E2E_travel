@@ -23,7 +23,7 @@ public class Resusable {
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
     public void visibble(WebElement element)
-    {wait =new WebDriverWait(driver, Duration.ofSeconds(20));
+    {wait =new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
     public void visibblelist(List<WebElement> element)

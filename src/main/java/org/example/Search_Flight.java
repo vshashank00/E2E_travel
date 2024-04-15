@@ -22,6 +22,8 @@ public class Search_Flight extends Resusable {
     List<WebElement> selectmonth;
     @FindBy(xpath = "//div[@data-testid=\"undefined-calendar-picker\"]/child::div[1]")
     WebElement nextmonth;
+    @FindBy(xpath = "//div[@data-testid=\"home-page-flight-cta\"]/child::div[text()='Search Flight']")
+    WebElement searchbutton;
     Search_Flight(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -70,7 +72,8 @@ public class Search_Flight extends Resusable {
                 }
             } else if (i % 2 == 0 && i != 0) {
                 nextmonth.click();
-            }else if (flag)break;
+            }else if (flag)
+                break;
 
 
         }
@@ -78,6 +81,8 @@ public class Search_Flight extends Resusable {
         flag = false;
         visibblelist(selectmonth);
         for (WebElement element : selectmonth) {
+            if (flag)
+                break;
             visibble(element);
             int i = selectmonth.indexOf(element);
             if (element.getText().contains(returnMonth + " " + returnYear)) {
@@ -95,10 +100,12 @@ public class Search_Flight extends Resusable {
                         Assert.fail();
                     }
                 }
+
             } else if (i % 2 == 0 && i != 0) {
-                nextmonth.click();
-            }else if (flag)break;
+                nextmonth.click();}
+
         }
         Assert.assertTrue(flag, "date is not selected");
+        movetoelement(searchbutton,driver);
     }
 }
