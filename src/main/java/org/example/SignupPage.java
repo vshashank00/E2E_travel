@@ -33,8 +33,6 @@ public class SignupPage extends Resusable {
     WebElement yeardob;
     @FindBy(xpath = "//input[@type='tel']")
     WebElement tel;
-    @FindBy(xpath = "//div[@class=\"react-datepicker__month\"]")
-    WebElement datepicker;
     @FindBy(xpath = "//div[@class=\"react-datepicker__week\"]")
     List<WebElement> elements;
     @FindBy(xpath = "//button[@type='button']")
