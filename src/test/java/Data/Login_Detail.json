@@ -3,6 +3,10 @@
     "id": "vshashank00@gmail.com",
     "password": "Password@1",
     "name": "Shashank",
+    "City": "Nainital",
+    "lastname": "Verma",
+    "Country": "India",
+    "Number": "9760503360",
     "source": "Goa",
     "sourceairport": "Dabolim",
     "destairport": "Gandhi",
@@ -12,7 +16,11 @@
     "travelMonth": "April",
     "returnDate": "28",
     "returnYear": "2025",
-    "returnMonth": "March"
+    "returnMonth": "March",
+    "time_of_departure_flight": "19:30",
+    "time_of_return_flight": "16:45"
+
+
 
   }
 ]

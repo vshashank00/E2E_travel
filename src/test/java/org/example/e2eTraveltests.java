@@ -1,11 +1,13 @@
 package org.example;
 
 import Data.Datatofeedon;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
 
 public class e2eTraveltests extends BaseTest{
+    static Book_flight bookFlight;
 @Test(dataProvider = "data",dataProviderClass = Datatofeedon.class)
     void signup(HashMap<String,String>hm) throws  InterruptedException {
     SignupPage signupPage=new SignupPage(driver);
@@ -18,7 +20,15 @@ public class e2eTraveltests extends BaseTest{
     Login login=new Login(driver);
     login.UserLogin(hm.get("id"), hm.get("password"),hm.get("name"));
     Search_Flight searchFlight=new Search_Flight(driver);
-    Book_flight bookFlight=searchFlight.search_Filghts(hm.get("source"),hm.get("sourceairport"),hm.get("destairport"),hm.get("destination"),hm.get("travelDate"),hm.get("travelYear"),hm.get("travelMonth"),hm.get("returnDate"),hm.get("returnYear"),hm.get("returnMonth"));
-    bookFlight.selectflight();
+     bookFlight=searchFlight.search_Filghts(hm.get("source"),hm.get("sourceairport"),hm.get("destairport"),hm.get("destination"),hm.get("travelDate"),hm.get("travelYear"),hm.get("travelMonth"),hm.get("returnDate"),hm.get("returnYear"),hm.get("returnMonth"));
+    Bookingpage bookingpage=bookFlight.selectflight(hm.get("time_of_departure_flight"),hm.get("time_of_return_flight"));
+    bookingpage.setCheck(hm.get("name"),hm.get("id"),hm.get("Country"),hm.get("lastname"),hm.get("Number"),hm.get("City"));
 }
+@Test(dataProvider = "timeofflight",dataProviderClass = Datatofeedon.class,dependsOnMethods = "loginandSearch" ,enabled = false)
+    void Selectflight(HashMap<String,String>hashMap){
+    bookFlight.selectflight(hashMap.get("time_of_departure_flight"),hashMap.get("time_of_return_flight"));
+
+
+    }
 }
+

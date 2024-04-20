@@ -8,14 +8,14 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
-import javax.swing.*;
 import java.time.Duration;
 import java.util.List;
-import java.util.Properties;
 
 public class Resusable {
     WebDriver driver;
+    String check="//input[@data-testid=";
 
     public WebDriverWait wait;
     static int c=0;
@@ -24,7 +24,7 @@ public class Resusable {
 
     Actions actions;
     String selectflightpath="//div[@id=\"list-results-section-";
-
+    String actualflighttime;
     Select sc;
     public void invisible(WebElement element){
        wait =new WebDriverWait(driver, Duration.ofSeconds(a));
@@ -65,14 +65,14 @@ public class Resusable {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", element);//moving to that element then clicking
     }
-    protected void selectflightwithtime(String timeofflight,WebDriver driver){
+    protected String selectflightwithtime(String timeofflight, WebDriver driver){
         List<WebElement> searched_flights=driver.findElements(By.xpath(selectflightpath+c+"\"]/child::div[@class=\"css-1dbjc4n r-1xdf14d\"]/div"));
         visibblelist(searched_flights);
         for(WebElement element:searched_flights){
 //           List<WebElement> time=element.findElements(By.xpath("//div[@class=\"css-1dbjc4n r-y3rmyz\"]/child::div[@class=\"css-76zvg2 r-homxoj r-1i10wst r-1kfrs79\"][1]"));
             List<WebElement> time  = element.findElements(By.cssSelector("div[class=\"css-1dbjc4n\"] div[class=\"css-1dbjc4n r-y3rmyz\"]>div[class=\"css-76zvg2 r-homxoj r-1i10wst r-1kfrs79\"]"));
             for (WebElement t:time){
-                if (t.getText().contains(timeofflight)){
+                if (t.getText().equals(timeofflight)){
                     flag=true;
                     c++;
                     break;
@@ -80,10 +80,15 @@ public class Resusable {
             }
             if (flag){
                 element.findElement(By.cssSelector("div[data-testid=\"spiceflex-flight-select-radio-button-1\"]")).click();
+                actualflighttime=element.getText().split("\n")[0];
                 break;
 
             }
         }
+return actualflighttime;
+    }
+     protected void valuecheck(WebDriver driver,String remainingxpath,String expected){
+        Assert.assertEquals(driver.findElement(By.xpath(check+remainingxpath)).getAttribute("value").toLowerCase(),expected.toLowerCase());
 
     }
 

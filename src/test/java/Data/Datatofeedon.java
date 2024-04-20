@@ -26,6 +26,13 @@ public class Datatofeedon {
         return new Object[][]{{hashMapList.get(0)}};
 
     }
+    @DataProvider(name="timeofflight")
+        Object[][] timeofflight() throws IOException {
+        List<HashMap<String,String>>list=getdatafromjson(System.getProperty("user.dir")+"/src/test/java/Data/Time.json");
+        return new Object[][]{{list.get(0)}};
+
+
+    }
 
     List<HashMap<String, String>> getdatafromjson(String path) throws IOException {
         String s= FileUtils.readFileToString(new File(path), StandardCharsets.UTF_8);

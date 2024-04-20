@@ -1,11 +1,11 @@
 package org.example;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import java.util.List;
 
@@ -26,24 +26,30 @@ public class Book_flight extends Reuse.Resusable {
     WebElement Retdirect_radio;
     @FindBy(xpath = "//div[@class=\"css-1dbjc4n r-1wtj0ep r-1f1sjgu\"]/descendant::div[text()='Continue']")
     WebElement Continue;
+    String actualflightime;
 
 
-
-    void selectflight(){
+    Bookingpage selectflight(String timeOfDepartureFlight, String timeOfReturnFlight){
         int c=0;
         Boolean flag=false;
         invisible(loader);
         Depdirect_radio.click();
-       List<WebElement> searched_flights=driver.findElements(By.xpath(selectflightpath+c+"\"]/child::div[@class=\"css-1dbjc4n r-1xdf14d\"]/div"));
-       visibblelist(searched_flights);
-        selectflightwithtime("19:30",driver);//self made function
+        Depdirect_radio.isSelected();
+        List<WebElement> searched_flights=driver.findElements(By.xpath(selectflightpath+c+"\"]/child::div[@class=\"css-1dbjc4n r-1xdf14d\"]/div"));
+        visibblelist(searched_flights);
+         actualflightime=selectflightwithtime(timeOfDepartureFlight,driver);//self made function
+        Assert.assertEquals(actualflightime,timeOfDepartureFlight);
         visibble(loader1);
         invisible(loader1);
         scrollIntoView(Retdirect_radio,driver);//this is js code you can find this in resusable class
         Retdirect_radio.click();
-        selectflightwithtime("16:35",driver);
+        Retdirect_radio.isSelected();
+        actualflightime=selectflightwithtime(timeOfReturnFlight,driver);
+        Assert.assertEquals(actualflightime,timeOfReturnFlight,"if fails time of flght is mismatched");
         invisible(loader1);
         movetoelement(Continue,driver);
+        visibble(loader1);
+        return new Bookingpage(driver);
 
 
 
