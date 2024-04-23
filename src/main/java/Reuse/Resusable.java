@@ -20,8 +20,8 @@ public class Resusable {
     public WebDriverWait wait;
     static int c=0;
     int a=40;
-    Boolean flag=false;
 
+    //span[text()='₹']/parent::div/preceding-sibling::div[@data-testid="spiceflex-flight-select-radio-button-1"]
     Actions actions;
     String selectflightpath="//div[@id=\"list-results-section-";
     String actualflighttime;
@@ -69,25 +69,36 @@ public class Resusable {
         List<WebElement> searched_flights=driver.findElements(By.xpath(selectflightpath+c+"\"]/child::div[@class=\"css-1dbjc4n r-1xdf14d\"]/div"));
         visibblelist(searched_flights);
         for(WebElement element:searched_flights){
+            Boolean flag=false;
+            int i=0;
 //           List<WebElement> time=element.findElements(By.xpath("//div[@class=\"css-1dbjc4n r-y3rmyz\"]/child::div[@class=\"css-76zvg2 r-homxoj r-1i10wst r-1kfrs79\"][1]"));
             List<WebElement> time  = element.findElements(By.cssSelector("div[class=\"css-1dbjc4n\"] div[class=\"css-1dbjc4n r-y3rmyz\"]>div[class=\"css-76zvg2 r-homxoj r-1i10wst r-1kfrs79\"]"));
             for (WebElement t:time){
-                if (t.getText().equals(timeofflight)){
+
+                if (t.getText().equals(timeofflight)&&i%2==0){
                     flag=true;
                     c++;
                     break;
                 }
+                i++;
             }
             if (flag){
-                element.findElement(By.cssSelector("div[data-testid=\"spiceflex-flight-select-radio-button-1\"]")).click();
+                WebElement element1=element.findElement(By.cssSelector("div[data-testid='spiceflex-flight-select-radio-button-1']>div>svg"));
+                clickable(element1);
+                element1.click();
+                if(!element.findElement(By.cssSelector("div[data-testid='spiceflex-flight-select-radio-button-1']>div>svg>g")).isDisplayed()){
+                    Assert.fail("Spice flex button is not selected");
+                }
                 actualflighttime=element.getText().split("\n")[0];
                 break;
 
             }
         }
+
 return actualflighttime;
     }
      protected void valuecheck(WebDriver driver,String remainingxpath,String expected){
+        visibble(driver.findElement(By.xpath(check+remainingxpath)));
         Assert.assertEquals(driver.findElement(By.xpath(check+remainingxpath)).getAttribute("value").toLowerCase(),expected.toLowerCase());
 
     }

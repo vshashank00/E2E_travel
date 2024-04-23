@@ -7,18 +7,18 @@
     "lastname": "Verma",
     "Country": "India",
     "Number": "9760503360",
-    "source": "Goa",
-    "sourceairport": "Dabolim",
-    "destairport": "Gandhi",
-    "destination": "delhi",
+    "source": "delhi",
+    "sourceairport": "Gandhi",
+    "destairport": "Chhatrapati",
+    "destination": "mumbai",
     "travelDate": "29",
     "travelYear": "2024",
     "travelMonth": "April",
     "returnDate": "28",
     "returnYear": "2025",
     "returnMonth": "March",
-    "time_of_departure_flight": "19:30",
-    "time_of_return_flight": "16:45"
+    "time_of_departure_flight": "20:15",
+    "time_of_return_flight": "09:40"
 
 
 

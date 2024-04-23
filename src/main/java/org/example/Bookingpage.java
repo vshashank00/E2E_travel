@@ -36,7 +36,9 @@ public class Bookingpage extends Reuse.Resusable {
     WebElement fill_mobile_number;
 
     void setCheck(String name, String id, String country, String lastname, String number, String city){
+        visibble(loader1);
         invisible(loader1);
+
         valuecheck(driver,"'first-inputbox-contact-details']",name);
         valuecheck(driver,"'last-inputbox-contact-details']",lastname);
         valuecheck(driver,"'contact-number-input-box']",number);
