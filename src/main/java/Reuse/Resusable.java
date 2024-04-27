@@ -39,7 +39,7 @@ public class Resusable {
         wait.until(ExpectedConditions.visibilityOfAllElements(element));
     }
     public void clickable(WebElement element){
-        wait =new WebDriverWait(driver, Duration.ofSeconds(a));
+        wait =new WebDriverWait(driver, Duration.ofSeconds(50));
         wait.until(ExpectedConditions.elementToBeClickable(element));
 
     }
@@ -85,6 +85,7 @@ public class Resusable {
             if (flag){
                 WebElement element1=element.findElement(By.cssSelector("div[data-testid='spiceflex-flight-select-radio-button-1']>div>svg"));
                 clickable(element1);
+                scrollIntoView(element1,driver);
                 element1.click();
                 if(!element.findElement(By.cssSelector("div[data-testid='spiceflex-flight-select-radio-button-1']>div>svg>g")).isDisplayed()){
                     Assert.fail("Spice flex button is not selected");

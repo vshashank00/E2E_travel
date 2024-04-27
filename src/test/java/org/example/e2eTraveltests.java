@@ -22,10 +22,11 @@ public class e2eTraveltests extends BaseTest{
     Search_Flight searchFlight=new Search_Flight(driver);
      bookFlight=searchFlight.search_Filghts(hm.get("source"),hm.get("sourceairport"),hm.get("destairport"),hm.get("destination"),hm.get("travelDate"),hm.get("travelYear"),hm.get("travelMonth"),hm.get("returnDate"),hm.get("returnYear"),hm.get("returnMonth"));
     Bookingpage bookingpage=bookFlight.selectflight(hm.get("time_of_departure_flight"),hm.get("time_of_return_flight"));
-    bookingpage.setCheck(hm.get("name"),hm.get("id"),hm.get("Country"),hm.get("lastname"),hm.get("Number"),hm.get("City"));
+    Addon addon=bookingpage.setCheck(hm.get("name"),hm.get("id"),hm.get("Country"),hm.get("lastname"),hm.get("Number"),hm.get("City"));
+    addon.addonpage();
 }
 @Test(dataProvider = "timeofflight",dataProviderClass = Datatofeedon.class,dependsOnMethods = "loginandSearch" ,enabled = false)
-    void Selectflight(HashMap<String,String>hashMap){
+    void Selectflight(HashMap<String,String>hashMap) throws InterruptedException {
     bookFlight.selectflight(hashMap.get("time_of_departure_flight"),hashMap.get("time_of_return_flight"));
 
 

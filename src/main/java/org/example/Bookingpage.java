@@ -35,9 +35,7 @@ public class Bookingpage extends Reuse.Resusable {
     @FindBy(css = "input[data-testid=\"sc-member-mobile-number-input-box\"]")
     WebElement fill_mobile_number;
 
-    void setCheck(String name, String id, String country, String lastname, String number, String city){
-        visibble(loader1);
-        invisible(loader1);
+    Addon setCheck(String name, String id, String country, String lastname, String number, String city){
 
         valuecheck(driver,"'first-inputbox-contact-details']",name);
         valuecheck(driver,"'last-inputbox-contact-details']",lastname);
@@ -54,6 +52,9 @@ public class Bookingpage extends Reuse.Resusable {
         scrollIntoView(fill_mobile_number,driver);
         clickable(Continue);
         movetoelement(Continue,driver);
+                visibble(loader1);
+        invisible(loader1);
+        return new Addon(driver);
 
 
 
