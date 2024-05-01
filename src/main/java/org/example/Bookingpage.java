@@ -50,7 +50,7 @@ public class Bookingpage extends Reuse.Resusable {
         Assert.assertEquals(fill_last_name.getAttribute("value").toLowerCase(),lastname.toLowerCase());
         Assert.assertEquals(fill_mobile_number.getAttribute("value"),number);
         scrollIntoView(fill_mobile_number,driver);
-        clickable(Continue);
+        clickable(Continue,driver);
         movetoelement(Continue,driver);
                 visibble(loader1);
         invisible(loader1);

@@ -30,7 +30,7 @@ public class Login extends Reuse.Resusable{
 
 
     public void UserLogin(String id, String pass, String name){
-        clickable(login);
+        clickable(login,driver);
         login.click();
         visibble(driver.findElement(By.xpath("//div[text()='Email']/ancestor::div[contains(@class,'css-1dbjc4n r-14lw9ot r-1p0dtai r-1pcd2l5 r-wk8lta r-u8s1d r-zchlnj r-ipm5af')]")));
         clickonEmail.click();

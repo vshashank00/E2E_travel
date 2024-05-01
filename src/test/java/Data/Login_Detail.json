@@ -9,16 +9,16 @@
     "Number": "9760503360",
     "source": "delhi",
     "sourceairport": "Gandhi",
-    "destairport": "Chhatrapati",
-    "destination": "mumbai",
-    "travelDate": "29",
+    "destairport": "Kempegowda International Airport",
+    "destination": "bengaluru",
+    "travelDate": "3",
     "travelYear": "2024",
-    "travelMonth": "April",
-    "returnDate": "28",
-    "returnYear": "2025",
-    "returnMonth": "March",
-    "time_of_departure_flight": "20:15",
-    "time_of_return_flight": "09:40"
+    "travelMonth": "May",
+    "returnDate": "5",
+    "returnYear": "2024",
+    "returnMonth": "May",
+    "time_of_departure_flight": "06:10",
+    "time_of_return_flight": "06:00"
 
 
 

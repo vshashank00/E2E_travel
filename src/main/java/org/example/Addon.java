@@ -27,12 +27,21 @@ public class Addon extends Resusable {
     WebElement lowpricecros;
     @FindBy(css = "div[data-testid=\"expandableList-header\"]")
    List <WebElement> add;
-    @FindBy(xpath="//div[text()='Done']")
+    @FindBy(xpath="//div[text()='Total Add-ons']/parent::div/following-sibling::div")
     WebElement done;
     @FindBy(css ="div[class='css-1dbjc4n r-14lw9ot r-13awgt0 r-18u37iz r-1fviwye']")
     WebElement planewin;
     @FindBy(xpath = "//div[@data-testid=\"seat-map-columns\"]/following-sibling::div/descendant::div[@class=\"css-1dbjc4n r-13ubf1n r-1mnahxq\"]")
     List<WebElement>seatno;
+    @FindBy(xpath = "//div[contains(text(),'Promo')]/parent::div")
+    WebElement promobox;
+    @FindBy(css = " div:nth-child(2) > div.css-1dbjc4n.r-1p0dtai.r-zso239.r-ipm5af > svg")
+    WebElement promocheck;
+    @FindBy(css = "div[class=\"css-1dbjc4n r-1loqt21 r-1otgn73\"] > div.css-1dbjc4n > svg")
+    WebElement terms;
+    @FindBy(xpath = "(//div[text()='Continue'])[4]")
+    WebElement Continue;
+
     void addonpage(){
         visibble(cross);
         cross.click();
@@ -40,6 +49,7 @@ public class Addon extends Resusable {
             if(element.getText().contains("Choose Your Seat"))
                 element.click();
         }
+        visibble(planewin);
         String seat="3F";
         for(int i=0;i<seatno.size();i++){
             if(seatno.get(i).getText().equals(seat)){
@@ -58,9 +68,19 @@ public class Addon extends Resusable {
             }
 
         }
-        visibble(planewin);
+        if(promobox.isDisplayed()){
+            promocheck.click();
+            clickable(terms,driver);
+            movetoelement(terms,driver);
+            promobox.findElement(By.xpath("(//div[text()='Continue'])[4]")).click();
+        }
+
         visibble(done);
-        clickable(done);
+        clickable(done,driver);
+        if(done.getText().contains("Select")){
+        movetoelement(done,driver);
+        driver.findElement(By.xpath("//div[contains(text(),'entitled')]")).isDisplayed();
+        }
         movetoelement(done,driver);
         visibble(lowpricesbox);
         lowpricecros.click();

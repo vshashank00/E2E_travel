@@ -34,6 +34,7 @@ public class Book_flight extends Reuse.Resusable {
     Bookingpage selectflight(String timeOfDepartureFlight, String timeOfReturnFlight) throws InterruptedException {
         int c=0;
         invisible(loader);
+        visibble(Depdirect_radio);
         Depdirect_radio.click();
         Depdirect_radio.isSelected();
         List<WebElement> searched_flights=driver.findElements(By.xpath(selectflightpath+c+"\"]/child::div[@class=\"css-1dbjc4n r-1xdf14d\"]/div"));
