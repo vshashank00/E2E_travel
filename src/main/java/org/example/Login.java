@@ -39,7 +39,7 @@ public class Login extends Reuse.Resusable{
         movetoelement(clickonlogin,driver);
         visibble(toastlogin);
         invisible(toastlogin);
-        Assert.assertTrue(verifyafterlogin.getText().contains(name));
+
     }
 
 }

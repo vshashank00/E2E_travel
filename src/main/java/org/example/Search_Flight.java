@@ -26,13 +26,16 @@ public class Search_Flight extends Resusable {
     WebElement searchbutton;
     @FindBy(xpath = "(//div[text()='You are being redirected to the partner website.']/ancestor::div)[1]/following-sibling::div[1]/descendant::div[@class=\"css-1dbjc4n r-1awozwy r-l0gwng\"]")
     WebElement loader;
+    @FindBy(xpath = "//div[contains(text(),'Shashank')]")
+    WebElement verifyafterlogin;
 
     Search_Flight(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public Book_flight search_Filghts(String source, String sourceairport, String destairport, String destination, String travelDate, String travelYear, String travelMonth, String returnDate, String returnYear, String returnMonth) throws InterruptedException {
+    public Book_flight search_Filghts(String source, String sourceairport, String destairport, String destination, String travelDate, String travelYear, String travelMonth, String returnDate, String returnYear, String returnMonth, String name) throws InterruptedException {
+        Assert.assertTrue(verifyafterlogin.getText().contains(name));
         roundtrip.click();
         origin.click();
         for (WebElement element : cities) {

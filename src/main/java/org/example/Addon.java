@@ -41,6 +41,12 @@ public class Addon extends Resusable {
     WebElement terms;
     @FindBy(xpath = "(//div[text()='Continue'])[4]")
     WebElement Continue;
+    @FindBy(css = "div[class=\"css-76zvg2 r-1862ga2 r-poiln3 r-n6v787 r-15zivkp r-100vyta\"]")
+    WebElement meal;
+    @FindBy(css ="div[class*='r-1jkjb r-edyy15']" )
+    List<WebElement> foodoption;
+    @FindBy(css ="div[class*='r-1oqcu8e r-13qz1uu']")
+    List<WebElement>getFoodoption;
 
     void addonpage(){
         visibble(cross);
@@ -79,9 +85,41 @@ public class Addon extends Resusable {
         clickable(done,driver);
         if(done.getText().contains("Select")){
         movetoelement(done,driver);
-        driver.findElement(By.xpath("//div[contains(text(),'entitled')]")).isDisplayed();
+        if(meal.getText().contains("A beverage will be served from the on-board available options.")){
+
+            visibblelist(foodoption);
+            for (WebElement food:foodoption){
+                if(food.getText().contains("Paneer masala")||food.getText().contains("Malai")){
+                    food.click();
+                }
+            }
+            }else if(meal.getText().contains("You are entitled for an eatable. Please choose your selection from the below options")){
+            visibblelist(getFoodoption);
+             for(WebElement food:getFoodoption){
+                 if(food.getText().contains("Vegetable Biryani")||food.getText().contains("Gluten-free dhokla"))
+                     food.findElement(By.cssSelector("div[class*=\"r-1g7fiml r-1777fci\"]>div[class*='r-ubezar r-1kfrs79']")).click();
+
+
+                      }
+
+        }
         }
         movetoelement(done,driver);
+        invisible(done);
+//        scrollIntoView(driver.findElement(By.cssSelector("div[data-testid=\"bookingFlow-meals-add-cta\"]")),driver);
+//        clickable(driver.findElement(By.xpath("//div[text()='SpiceCafé']")),driver);
+//        driver.findElement(By.xpath("//div[text()='SpiceCafé']")).click();
+//        if(meal.getText().contains("You are entitled for an eatable. Please choose your selection from the below options")){
+//            visibblelist(getFoodoption);
+//            for(WebElement food:getFoodoption){
+//                if(food.getText().contains("Vegetable Biryani")||food.getText().contains("Gluten-free dhokla"))
+//                    food.findElement(By.cssSelector("div[class*=\"r-1g7fiml r-1777fci\"]>div[class*='r-ubezar r-1kfrs79']")).click();
+//
+//
+//            }
+//            movetoelement(done,driver);
+//        }
+
         visibble(lowpricesbox);
         lowpricecros.click();
     }
