@@ -6,7 +6,7 @@
                     pattern="%d{HH:mm:ss.SSS} [%t]%-5level %logger{36} - %msg%n" />
         </Appender>
 
-        <Appender type="File" name="file" fileName="C:\Users\vshas\IdeaProjects\e2eTravel\src\main\java\Logfile\travel.log">
+        <Appender type="File" name="file" fileName="C:\Users\vshas\IdeaProjects\e2eTravel\src\main\java\Logfile\travel.log" append="false">
             <Layout type="PatternLayout"
                     pattern="%d{HH:mm:ss.SSS} [%t]%-5level %logger{36} - %msg%n" />
         </Appender>

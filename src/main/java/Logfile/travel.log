@@ -1,0 +1,3 @@
+17:53:03.590 [TestNG-test-C:/Users/vshas/IdeaProjects/e2eTravel/src/test/java/org/example/e2eTraveltests.java-1]INFO  org.example.Login - hello
+17:53:04.514 [TestNG-test-C:/Users/vshas/IdeaProjects/e2eTravel/src/test/java/org/example/e2eTraveltests.java-1]INFO  org.example.Login - Logged in
+17:53:08.077 [TestNG-test-C:/Users/vshas/IdeaProjects/e2eTravel/src/test/java/org/example/e2eTraveltests.java-1]INFO  org.example.Negative - negative

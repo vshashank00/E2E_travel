@@ -9,7 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import javax.swing.*;
-import java.util.Arrays;
 import java.util.List;
 
 public class Addon extends Resusable {

@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class Negative extends BaseTest {
     Logger logger= LogManager.getLogger(Negative.class);
     @Test
-    void logib(){
+    void Falselogin(){
 
     Login login=new Login(driver);
     login.UserLogin("vshashank00@gmail.com","shashank","Shashank");

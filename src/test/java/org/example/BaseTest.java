@@ -5,7 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
@@ -21,17 +23,22 @@ public class BaseTest {
        Properties properties=new Properties();
        FileInputStream fileInputStream=new FileInputStream(System.getProperty("user.dir")+"/src/main/java/BrowserProperties/Browser.properties");
        properties.load(fileInputStream);
-       if (properties.getProperty("Browser").equalsIgnoreCase("chrome")){
+       String broweser=System.getProperty("browser")!=null?System.getProperty("browser"):properties.getProperty("Browser");
+       if (broweser.equalsIgnoreCase("chrome")){
            ChromeOptions chromeOptions=new ChromeOptions();
            chromeOptions.addArguments("disable-notifications");
            WebDriverManager.chromedriver().setup();
            driver=new ChromeDriver(chromeOptions);
-       }else if(properties.getProperty("Browser").equalsIgnoreCase("firefox")){
+       }else if(broweser.equalsIgnoreCase("firefox")){
            WebDriverManager.firefoxdriver().setup();
-           driver=new FirefoxDriver();
-       } else if (properties.getProperty("Browser").equalsIgnoreCase("edge")) {
+           FirefoxOptions firefoxOptions=new FirefoxOptions();
+           firefoxOptions.addArguments("disable-notification");
+           driver=new FirefoxDriver(firefoxOptions);
+       } else if (broweser.equalsIgnoreCase("edge")) {
            WebDriverManager.edgedriver().setup();
-           driver=new EdgeDriver();
+           EdgeOptions edgeOptions=new EdgeOptions();
+           edgeOptions.addArguments("disable-notification");
+           driver=new EdgeDriver(edgeOptions);
        }else
            System.out.println("driver config is not setup");
        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
@@ -47,6 +54,6 @@ public class BaseTest {
    }
   @AfterTest
     void close(){
-//       driver.quit();
+       driver.quit();
     }
 }

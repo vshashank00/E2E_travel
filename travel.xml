@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="C:/Users/vshas/IdeaProjects/e2eTravel/src/test/java/org/example/e2eTraveltests.java" parallel="methods">
+        <classes>
+            <class name="org.example.e2eTraveltests">
+                <methods>
+                    <include name="loginandSearch"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
