@@ -1,5 +1,7 @@
 package Reuse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +16,7 @@ import java.time.Duration;
 import java.util.List;
 
 public class Resusable {
+    Logger logger= LogManager.getLogger(Resusable.class);
     static int c = 0;
     public WebDriverWait wait;
     WebDriver driver;
@@ -115,8 +118,11 @@ public class Resusable {
                 clickable(element1, driver);
                 scrollIntoView(element1, driver);
                 element1.click();
+                logger.info("flight is selected");
+
                 if (!element.findElement(By.cssSelector("div[data-testid='spiceflex-flight-select-radio-button-1']>div>svg>g")).isDisplayed()) {
                     Assert.fail("Spice flex button is not selected");
+                    logger.error("Spice flex button is not selected");
                 }
 
                 break;

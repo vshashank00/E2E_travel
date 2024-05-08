@@ -35,7 +35,7 @@ public class Bookingpage extends Reuse.Resusable {
     @FindBy(css = "input[data-testid=\"sc-member-mobile-number-input-box\"]")
     WebElement fill_mobile_number;
 
-    Addon setCheck(String name, String id, String country, String lastname, String number, String city){
+  public Addon setCheck(String name, String id, String country, String lastname, String number, String city){
 
         valuecheck(driver,"'first-inputbox-contact-details']",name);
         valuecheck(driver,"'last-inputbox-contact-details']",lastname);

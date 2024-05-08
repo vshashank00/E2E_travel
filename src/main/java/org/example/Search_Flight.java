@@ -1,16 +1,19 @@
 package org.example;
 
 import Reuse.Resusable;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-
 import java.util.List;
 
 public class Search_Flight extends Resusable {
+    static  Logger logger= LogManager.getLogger(Search_Flight.class);
     WebDriver driver;
     @FindBy(xpath = "//div[contains(text(),'round trip')]/parent::div/preceding-sibling::div")
     WebElement roundtrip;
@@ -37,6 +40,7 @@ public class Search_Flight extends Resusable {
     public Book_flight search_Filghts(String source, String sourceairport, String destairport, String destination, String travelDate, String travelYear, String travelMonth, String returnDate, String returnYear, String returnMonth, String name) throws InterruptedException {
         Assert.assertTrue(verifyafterlogin.getText().contains(name));
         roundtrip.click();
+        logger.info("hello from search flights");
         origin.click();
         for (WebElement element : cities) {
 
@@ -71,6 +75,7 @@ public class Search_Flight extends Resusable {
                     }
                     else if (Integer.parseInt(travelDate)>31){
                         System.out.println("date is not valid");
+                        logger.info("date is not valid");
                         Assert.fail();
                     }
                 }
