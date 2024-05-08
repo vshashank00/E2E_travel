@@ -1,6 +1,7 @@
 package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -24,11 +25,15 @@ public class BaseTest {
        FileInputStream fileInputStream=new FileInputStream(System.getProperty("user.dir")+"/src/main/java/BrowserProperties/Browser.properties");
        properties.load(fileInputStream);
        String broweser=System.getProperty("browser")!=null?System.getProperty("browser"):properties.getProperty("Browser");
-       if (broweser.equalsIgnoreCase("chrome")){
+       if (broweser.contains("chrome")){
            ChromeOptions chromeOptions=new ChromeOptions();
            chromeOptions.addArguments("disable-notifications");
+           if(broweser.contains("headless")){chromeOptions.addArguments("headless");
+           }
            WebDriverManager.chromedriver().setup();
            driver=new ChromeDriver(chromeOptions);
+           if(broweser.contains("headless")){driver.manage().window().setSize(new Dimension(1440,900));
+           }
        }else if(broweser.equalsIgnoreCase("firefox")){
            WebDriverManager.firefoxdriver().setup();
            FirefoxOptions firefoxOptions=new FirefoxOptions();
