@@ -1,7 +1,10 @@
 package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
@@ -49,6 +53,11 @@ public class BaseTest {
        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
        driver.manage().window().maximize();
        return driver;
+   }
+   String sc(String testname, WebDriver driver) throws IOException {
+       File file=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+       FileUtils.copyFile(file,new File(System.getProperty("user.dir")+"/src/main/java/Reporting/"+testname+".png"));
+       return System.getProperty("user.dir")+"\\src\\main\\java\\Reporting\\"+testname+".png";
    }
    @BeforeTest(alwaysRun = true)
    void setupBrowser() throws IOException {

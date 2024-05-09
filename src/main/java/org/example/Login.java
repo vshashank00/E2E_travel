@@ -39,7 +39,7 @@ public class Login extends Reuse.Resusable{
         clickonEmail.click();
         emailtofeed.sendKeys(id);
         passtofeed.sendKeys(pass);
-        movetoelement(clickonlogin,driver);
+        movetoelement(toastlogin,driver);
         logger.info("Logged in");
         visibble(toastlogin);
         invisible(toastlogin);
