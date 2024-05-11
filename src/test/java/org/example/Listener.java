@@ -5,8 +5,6 @@ import Reporting.Reports;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.markuputils.Markup;
-import com.aventstack.extentreports.reporter.ExtentReporter;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -19,15 +17,17 @@ public class Listener extends BaseTest implements ITestListener  {
 
     ExtentReports extentReports=Reports.reports_travel();
     ExtentTest test;
+    ThreadLocal<ExtentTest>testThreadLocal=new ThreadLocal<>();
     @Override
     public void onTestStart(ITestResult result) {
        test=extentReports.createTest(result.getMethod().getMethodName());
+       testThreadLocal.set(test);
 
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        test.log(Status.PASS,"test passed");
+        testThreadLocal.get().log(Status.PASS,"test passed");
 
     }
 
@@ -37,9 +37,7 @@ public class Listener extends BaseTest implements ITestListener  {
 
         try {
             driver = (WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             throw new RuntimeException(e);
         }
 
@@ -51,9 +49,9 @@ public class Listener extends BaseTest implements ITestListener  {
             throw new RuntimeException(e);
         }
 
-        test.addScreenCaptureFromPath(path);
-        test.fail(result.getThrowable());
-        test.log(Status.FAIL,"failde");
+        testThreadLocal.get().addScreenCaptureFromPath(path);
+        testThreadLocal.get().fail(result.getThrowable());
+        testThreadLocal.get().log(Status.FAIL,"failde");
     }
 
     @Override
