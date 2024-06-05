@@ -1,1 +1,5 @@
-22:23:20.811 [TestNG-test-C:/Users/vshas/IdeaProjects/e2eTravel/src/test/java/org/example/e2eTraveltests.java-1]INFO  org.example.Login - hello
+00:22:59.630 [main]INFO  org.example.Login - hello
+00:23:00.707 [main]INFO  org.example.Login - Logged in
+00:23:05.464 [main]INFO  org.example.Search_Flight - hello from search flights
+00:23:16.155 [main]INFO  Reuse.Resusable - flight is selected
+00:23:20.743 [main]INFO  Reuse.Resusable - flight is selected

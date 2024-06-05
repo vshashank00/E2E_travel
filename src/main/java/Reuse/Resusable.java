@@ -2,16 +2,15 @@ package Reuse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import javax.swing.*;
 import java.time.Duration;
 import java.util.List;
 
@@ -21,6 +20,7 @@ public class Resusable {
     public WebDriverWait wait;
     WebDriver driver;
     String check = "//input[@data-testid=";
+    String cssofseat = "svg[data-testid='svg-img']>g>g>path:nth-child(1)";
     int a = 40;
 
     //span[text()='₹']/parent::div/preceding-sibling::div[@data-testid="spiceflex-flight-select-radio-button-1"]
@@ -28,6 +28,15 @@ public class Resusable {
     String selectflightpath = "//div[@id=\"list-results-section-";
     String actualflighttime;
     Select sc;
+   static boolean flag=false;
+    @FindBy(css = "div[data-testid=\"expandableList-header\"]")
+    List<WebElement> add;
+    @FindBy(xpath = "//div[@data-testid=\"seat-map-columns\"]/following-sibling::div/descendant::div[@class=\"css-1dbjc4n r-13ubf1n r-1mnahxq\"]")
+    List<WebElement> seatno;
+    @FindBy(css = "div[class='css-1dbjc4n r-14lw9ot r-13awgt0 r-18u37iz r-1fviwye']")
+    WebElement planewin;
+    @FindBy(xpath = "(//div[@class=\"css-1dbjc4n r-13awgt0 r-18u37iz r-1wtj0ep\"])[2]")
+    WebElement retfood;
 
     public void invisible(WebElement element) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(a));
@@ -52,7 +61,7 @@ public class Resusable {
 
     public void movetoelement(WebElement element, WebDriver driver) {
         actions = new Actions(driver);
-        actions.moveToElement(element).click().build().perform();
+        actions.moveToElement(element).click(element).build().perform();
     }
 
     public void movetoelement(WebElement element, WebDriver driver, int x, int y) {
@@ -137,6 +146,94 @@ public class Resusable {
         visibble(driver.findElement(By.xpath(check + remainingxpath)));
         Assert.assertEquals(driver.findElement(By.xpath(check + remainingxpath)).getAttribute("value").toLowerCase(), expected.toLowerCase());
 
+    }
+    protected void Choose_Your_Seat(WebDriver driver){
+        for (WebElement element : add) {
+            if (element.getText().contains("Choose Your Seat"))
+                element.click();
+        }
+        visibble(planewin);
+        String seat = "3E";
+        for (int i = 0; i < seatno.size(); i++) {
+            if (seatno.get(i).getText().equals(seat)) {
+                String s = seatno.get(i).findElement(By.cssSelector(cssofseat)).getAttribute("fill");
+                if (!s.contains("unavailable")) {
+                    seatno.get(i).click();
+                    break;
+                } else {
+                    JFrame jFrame = new JFrame();
+                    jFrame.setAlwaysOnTop(true);//will show you the dialog box
+                    seat = JOptionPane.showInputDialog(jFrame, "seat is unavailable book");
+                    System.out.println("seat is already book");
+                    i = -1;
+                }
+
+            }
+
+        }
+    }
+    protected void fetchfare(WebElement fetchingfaretoast,WebElement promobox,WebElement promocheck,WebElement terms ,WebDriver driver
+    ){
+        try {
+            if(fetchingfaretoast.isDisplayed()){
+                invisible(fetchingfaretoast);
+                if (promobox.isDisplayed()) {
+                    promocheck.click();
+                    clickable(terms, driver);
+                    movetoelement(terms, driver);
+                    promobox.findElement(By.xpath("(//div[text()='Continue'])[4]")).click();
+                }
+
+            }
+        }catch (NoSuchElementException e){
+            System.out.println(e);
+
+        }
+
+
+    }
+    protected void  meal(WebElement done,WebElement meal,List<WebElement> foodoption,List<WebElement> getFoodoption,WebDriver driver){
+
+        visibble(done);
+        clickable(done, driver);
+        if (done.getText().contains("Select Meal")) {
+            movetoelement(done, driver);
+
+            if (meal.getText().contains("A beverage will be served from the on-board available options.")) {
+                if(flag){
+                    visibble(retfood);
+                    clickable(retfood,driver);
+                    retfood.click();}
+                visibblelist(foodoption);
+                for (WebElement food : foodoption) {
+                    if (food.getText().contains("Paneer masala")) {
+                        food.click();
+                        flag=true;
+
+                    }
+                }
+                movetoelement(done,driver);
+            } else if (meal.getText().contains("You are entitled for an eatable. Please choose your selection from the below options")) {
+                if(flag){
+                    visibble(retfood);
+                    clickable(retfood,driver);
+                    retfood.click();}
+                visibblelist(getFoodoption);
+                for (WebElement food : getFoodoption) {
+                    if (food.getText().contains("Vegetable Biryani") || food.getText().contains("Gluten-free dhokla"))
+                        food.findElement(By.cssSelector("div[class*=\"r-1g7fiml r-1777fci\"]>div[class*='r-ubezar r-1kfrs79']")).click();
+                    flag=true;
+
+
+                }
+                movetoelement(done,driver);
+                invisible(done);
+
+            }
+            invisible(planewin);
+        }else {
+        movetoelement(done, driver);
+        invisible(done);}
     }
 
 }

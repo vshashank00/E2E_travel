@@ -1,14 +1,12 @@
 package org.example;
 
 import Reuse.Resusable;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
-import javax.swing.*;
 import java.util.List;
 
 public class Addon extends Resusable {
@@ -44,6 +42,11 @@ public class Addon extends Resusable {
     List<WebElement> getFoodoption;
     @FindBy(css = "div[class='css-1dbjc4n r-1awozwy r-l0gwng']")
     WebElement fetchingfaretoast;
+    @FindBy(xpath = "//div[@data-testid='spice-max-card-add-cta']/child::div[text()='Modify']")
+    WebElement modify;
+    @FindBy(xpath = "//*[@id='addons-container']/div/div[2]/div/div[3]/div/div/div/div[2]/div[2]/div[2]/div/div/div")
+    WebElement edit;
+
     Addon(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -53,69 +56,22 @@ public class Addon extends Resusable {
     void addonpage() {
         visibble(cross);
         cross.click();
-        for (WebElement element : add) {
-            if (element.getText().contains("Choose Your Seat"))
-                element.click();
-        }
-        visibble(planewin);
-        String seat = "3E";
-        for (int i = 0; i < seatno.size(); i++) {
-            if (seatno.get(i).getText().equals(seat)) {
-                String s = seatno.get(i).findElement(By.cssSelector(cssofseat)).getAttribute("fill");
-                if (!s.contains("unavailable")) {
-                    seatno.get(i).click();
-                    break;
-                } else {
-                    JFrame jFrame = new JFrame();
-                    jFrame.setAlwaysOnTop(true);//will show you the dialog box
-                    seat = JOptionPane.showInputDialog(jFrame, "seat is unavailable book");
-                    System.out.println("seat is already book");
-                    i = -1;
-                }
-
-            }
-
-        }
-        try {
-            if(fetchingfaretoast.isDisplayed()){
-                invisible(fetchingfaretoast);
-                if (promobox.isDisplayed()) {
-                    promocheck.click();
-                    clickable(terms, driver);
-                    movetoelement(terms, driver);
-                    promobox.findElement(By.xpath("(//div[text()='Continue'])[4]")).click();
-                }
-            }
-        }catch (NoSuchElementException e){
-            System.out.println(e);
-
+        Choose_Your_Seat(driver);
+        fetchfare(fetchingfaretoast, promobox, promocheck, terms, driver);
+        meal(done, meal, foodoption, getFoodoption, driver);
+        if (modify.getText().equalsIgnoreCase("Modify")) {
+            modify.click();
+            visibble(edit);
+            clickable(edit, driver);
+            movetoelement(edit, driver);
+            Choose_Your_Seat(driver);
+            fetchfare(fetchingfaretoast, promobox, promocheck, terms, driver);
+            meal(done, meal, foodoption, getFoodoption, driver);
+        } else {
+            Assert.fail();
         }
 
-        visibble(done);
-        clickable(done, driver);
-        if (done.getText().contains("Select")) {
-            movetoelement(done, driver);
-            if (meal.getText().contains("A beverage will be served from the on-board available options.")) {
 
-                visibblelist(foodoption);
-                for (WebElement food : foodoption) {
-                    if (food.getText().contains("Paneer masala") || food.getText().contains("Malai")) {
-                        food.click();
-                    }
-                }
-            } else if (meal.getText().contains("You are entitled for an eatable. Please choose your selection from the below options")) {
-                visibblelist(getFoodoption);
-                for (WebElement food : getFoodoption) {
-                    if (food.getText().contains("Vegetable Biryani") || food.getText().contains("Gluten-free dhokla"))
-                        food.findElement(By.cssSelector("div[class*=\"r-1g7fiml r-1777fci\"]>div[class*='r-ubezar r-1kfrs79']")).click();
-
-
-                }
-
-            }
-        }
-        movetoelement(done, driver);
-        invisible(done);
 //        scrollIntoView(driver.findElement(By.cssSelector("div[data-testid=\"bookingFlow-meals-add-cta\"]")),driver);
 //        clickable(driver.findElement(By.xpath("//div[text()='SpiceCafé']")),driver);
 //        driver.findElement(By.xpath("//div[text()='SpiceCafé']")).click();

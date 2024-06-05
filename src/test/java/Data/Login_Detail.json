@@ -11,13 +11,13 @@
     "sourceairport": "Gandhi",
     "destairport": "Kempegowda International Airport",
     "destination": "bengaluru",
-    "travelDate": "9",
+    "travelDate": "20",
     "travelYear": "2024",
-    "travelMonth": "May",
-    "returnDate": "11",
+    "travelMonth": "June",
+    "returnDate": "22",
     "returnYear": "2024",
-    "returnMonth": "May",
-    "time_of_departure_flight": "19:40",
+    "returnMonth": "June",
+    "time_of_departure_flight": "06:15",
     "time_of_return_flight": "06:00"
 
 

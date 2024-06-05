@@ -32,6 +32,7 @@ public class BaseTest {
        if (broweser.contains("chrome")){
            ChromeOptions chromeOptions=new ChromeOptions();
            chromeOptions.addArguments("disable-notifications");
+           chromeOptions.setAcceptInsecureCerts(true);
            if(broweser.contains("headless")){chromeOptions.addArguments("headless");
            }
            WebDriverManager.chromedriver().setup();
@@ -68,6 +69,6 @@ public class BaseTest {
    }
   @AfterTest
     void close(){
-       driver.quit();
+//       driver.quit();
     }
 }

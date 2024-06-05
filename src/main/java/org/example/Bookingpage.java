@@ -52,7 +52,7 @@ public class Bookingpage extends Reuse.Resusable {
         scrollIntoView(fill_mobile_number,driver);
         clickable(Continue,driver);
         movetoelement(Continue,driver);
-                visibble(loader1);
+        visibble(loader1);
         invisible(loader1);
         return new Addon(driver);
 

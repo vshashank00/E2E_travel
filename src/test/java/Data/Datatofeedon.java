@@ -12,7 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Datatofeedon {
-    @DataProvider(name = "data")
+    
+    @DataProvider(name = "data",parallel = true)
     Object[][] signupData() throws IOException {
         List<HashMap<String,String>>hashMapList=getdatafromjson(System.getProperty("user.dir")+"/src/test/java/Data/Signup.json");
 
@@ -26,7 +27,7 @@ public class Datatofeedon {
         return new Object[][]{{hashMapList.get(0)}};
 
     }
-    @DataProvider(name="timeofflight")
+    @DataProvider(name="timeofflight" ,parallel = true)
         Object[][] timeofflight() throws IOException {
         List<HashMap<String,String>>list=getdatafromjson(System.getProperty("user.dir")+"/src/test/java/Data/Time.json");
         return new Object[][]{{list.get(0)}};
