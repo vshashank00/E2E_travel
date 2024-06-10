@@ -69,6 +69,6 @@ public class BaseTest {
    }
   @AfterTest
     void close(){
-//       driver.quit();
+       driver.quit();
     }
 }
