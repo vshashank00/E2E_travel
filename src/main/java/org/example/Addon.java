@@ -1,8 +1,8 @@
 package org.example;
 
 import Reuse.Resusable;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -32,7 +32,7 @@ public class Addon extends Resusable {
     WebElement promocheck;
     @FindBy(css = "div[class=\"css-1dbjc4n r-1loqt21 r-1otgn73\"] > div.css-1dbjc4n > svg")
     WebElement terms;
-    @FindBy(xpath = "(//div[text()='Continue'])[4]")
+    @FindBy(css = "#main-container > div > div.css-1dbjc4n.r-1kihuf0.r-1251kcm.r-13qz1uu > div > div > div.css-1dbjc4n.r-2ka9w3.r-6ity3w.r-zr9zts > div > div > div:nth-child(4)")
     WebElement Continue;
     @FindBy(css = "div[class=\"css-76zvg2 r-1862ga2 r-poiln3 r-n6v787 r-15zivkp r-100vyta\"]")
     WebElement meal;
@@ -53,7 +53,7 @@ public class Addon extends Resusable {
 
     }
 
-    void addonpage() {
+    void addonpage() throws InterruptedException {
         visibble(cross);
         cross.click();
         Choose_Your_Seat(driver);
@@ -70,23 +70,15 @@ public class Addon extends Resusable {
         } else {
             Assert.fail();
         }
+        scroll(0,2000,driver);
+        clickable(Continue,driver);
+        Continue.click();
 
 
-//        scrollIntoView(driver.findElement(By.cssSelector("div[data-testid=\"bookingFlow-meals-add-cta\"]")),driver);
-//        clickable(driver.findElement(By.xpath("//div[text()='SpiceCafé']")),driver);
-//        driver.findElement(By.xpath("//div[text()='SpiceCafé']")).click();
-//        if(meal.getText().contains("You are entitled for an eatable. Please choose your selection from the below options")){
-//            visibblelist(getFoodoption);
-//            for(WebElement food:getFoodoption){
-//                if(food.getText().contains("Vegetable Biryani")||food.getText().contains("Gluten-free dhokla"))
-//                    food.findElement(By.cssSelector("div[class*=\"r-1g7fiml r-1777fci\"]>div[class*='r-ubezar r-1kfrs79']")).click();
-//
-//
-//            }
-//            movetoelement(done,driver);
-//        }
 
-//        visibble(lowpricesbox);
-//        lowpricecros.click();
+
+
+
+
     }
 }

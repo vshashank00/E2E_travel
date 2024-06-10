@@ -37,12 +37,16 @@ public class Resusable {
     WebElement planewin;
     @FindBy(xpath = "(//div[@class=\"css-1dbjc4n r-13awgt0 r-18u37iz r-1wtj0ep\"])[2]")
     WebElement retfood;
+    JavascriptExecutor js;
 
     public void invisible(WebElement element) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(a));
         wait.until(ExpectedConditions.invisibilityOf(element));
     }
-
+public  void  scroll(int x,int y,WebDriver driver){
+    js = (JavascriptExecutor) driver;
+    js.executeScript("window.scrollBy("+x+","+y+")");
+}
     public void visibble(WebElement element) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(a));
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -81,7 +85,7 @@ public class Resusable {
     }
 
     protected void scrollIntoView(WebElement element, WebDriver driver) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", element);//moving to that element then clicking
     }
 
